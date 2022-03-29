@@ -1,4 +1,5 @@
 #include "gpio.h"
+#include "uart.h"
 
 int main() {
     gpio_init();
@@ -9,3 +10,10 @@ int main() {
     }
     return 0;
 }
+
+/* Oppgaver
+
+pinn UART_INT_RX: P0 6 (READ)
+pinn UART_INT_TX: P1 8 (TRANSMIT)
+
+*/
