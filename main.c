@@ -5,8 +5,11 @@ int main() {
     gpio_init();
     gpio_lights_off();
     gpio_lights_on();
+    uart_init();
+    uart_send('H');
     while (1){
-        // nothing
+        uart_send('H');
+        uart_send('\n');
     }
     return 0;
 }
