@@ -33,3 +33,11 @@ void uart_send(char letter) {
     while (UART->EVENTS_TXDRDY != 1){}
     UART->TASKS_STOPRX = 1;
 }
+
+char uart_read() {
+    if (!UART->EVENTS_RXDRDY)
+        return '\0';
+    char read = UART->RXD;
+    UART->EVENTS_RXDRDY = 0;
+    return read;
+}
