@@ -24,5 +24,12 @@ void uart_init() {
     // ENABLE UART og start å ta i mot meldinger
     UART->ENABLE = 4;
     UART->TASKS_STARTRX = 1;
+}
 
+void uart_send(char letter) {
+    // fig s176
+    UART->TASKS_STARTTX = 1;
+    UART->TXD = letter;
+    while (UART->EVENTS_TXDRDY != 1){}
+    UART->TASKS_STOPRX = 1;
 }
