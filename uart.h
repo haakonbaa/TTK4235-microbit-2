@@ -8,8 +8,11 @@
 #define vol32 volatile uint32_t
 
 // s 489
+
+#define UART ((NRF_UART_REG*)0x40002000) 
+
 typedef struct {
-    vol32 TASKS_STARTX;                     // 0x000 Start UART receiver
+    vol32 TASKS_STARTRX;                     // 0x000 Start UART receiver
     vol32 TASKS_STOPRX;                     // 0x004 Stop UART receiver
     vol32 TASKS_STARTTX;                    // 0x008 Start UART transmitter
     vol32 TASKS_STOPTX;                     // 0x00C Stop UART transmitter
