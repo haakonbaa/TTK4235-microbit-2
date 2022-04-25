@@ -9,16 +9,30 @@ int isBDown() {
     return ((~GPIO0->IN) & (1 << 23));
 }
 
+typedef enum { 
+    NONE = 0,
+    A,
+    B,
+} BtnState;
+
 int main() {
     gpio_init();
     gpio_lights_off();
     uart_init();
-     while (1) {
+    BtnState state = NONE;
+    while (1) { 
         if (isADown()) {
-            uart_send('A');
-        }
-        if (isBDown()) {
-            uart_send('B');
+            if (state != A) {
+                uart_send('A');
+            }
+            state = A;
+        } else if (isBDown()) {
+            if (state != B) {
+                uart_send('B');
+            }
+           state = B;
+        } else {
+            state = NONE;
         }
     }
     return 0;
