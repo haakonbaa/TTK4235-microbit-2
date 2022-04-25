@@ -39,6 +39,8 @@ void gpio_init();
 void gpio_lights_on();
 void gpio_lights_off();
 
+int isADown();
+int isBDown();
+void toggleLights();
 
 #endif
-
