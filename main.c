@@ -1,5 +1,26 @@
+#include <stdio.h>
+
 #include "gpio.h"
 #include "uart.h"
+
+ssize_t _write(int fd, const void *buf, size_t count) {
+    char *letter = (char *)(buf);
+    for (int i = 0; i < count; i++) {
+        uart_send(*letter);
+        letter++;
+    }
+    return count;
+}
+
+ssize_t _read(int fd, void *buf, size_t count) {
+    char *str = (char *)(buf);
+    char letter;
+    do {
+        letter = uart_read();
+    } while (letter == '\0');
+    *str = letter;
+    return 1;
+}
 
 typedef enum {
     NONE = 0,
@@ -11,6 +32,15 @@ int main() {
     gpio_init();
     gpio_lights_off();
     uart_init();
+    int a = 0;
+    int b = 0;
+    iprintf("\e[1;1H\e[2J");
+    iprintf("Skriv inn et tall:\n\r");
+    iscanf("%d",&a);
+    iprintf("Skriv inn et nytt:\n\r");
+    iscanf("%d",&b);
+    iprintf("Tallene ganget sammen er: %d\n\r",a*b);
+    iprintf("The average grade in TTK%d was in %d and %d: %c\n\r\n", 4235, 2019, 2018, 'C');
     BtnState state = NONE;
     while (1) {
         // Send A eller B om knappene trykkes ned
