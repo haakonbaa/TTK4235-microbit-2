@@ -1,15 +1,25 @@
 #include "gpio.h"
 #include "uart.h"
 
+int isADown() {
+    return (~GPIO0->IN) & (1 << 14);
+}
+
+int isBDown() {
+    return ((~GPIO0->IN) & (1 << 23));
+}
+
 int main() {
     gpio_init();
     gpio_lights_off();
-    gpio_lights_on();
     uart_init();
-    uart_send('H');
-    while (1){
-        uart_send('H');
-        uart_send('\n');
+     while (1) {
+        if (isADown()) {
+            uart_send('A');
+        }
+        if (isBDown()) {
+            uart_send('B');
+        }
     }
     return 0;
 }

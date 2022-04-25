@@ -31,6 +31,7 @@ void uart_send(char letter) {
     UART->TASKS_STARTTX = 1;
     UART->TXD = letter;
     while (UART->EVENTS_TXDRDY != 1){}
+    UART->EVENTS_TXDRDY = 0; 
     UART->TASKS_STOPTX = 1;
 }
 
